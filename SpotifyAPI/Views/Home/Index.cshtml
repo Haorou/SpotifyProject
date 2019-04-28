@@ -1,22 +1,61 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<body>
 
-<div class="jumbotron">
-    <h class="text-center">Recherche un artiste</h>
-</div>
-
-<div class="row">
-    <div class="col-md-9 col-md-offset-3">
-
-        @using (Html.BeginForm("SearchResult", "Home", FormMethod.Post))
-        {
-            <div class="form-group">
-                @Html.Label("Artiste")
-                @Html.TextBox("ArtistName")
-            </div>
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-        }
-
+    <div class="jumbotron">
+        <h class="text-center">Recherche un artiste</h>
     </div>
-</div>
+
+    <div class="row">
+        <div class="col-md-9 col-md-offset-3">
+
+            @using (Html.BeginForm("SearchResult", "Home", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.Label("Artiste")
+                    <input id="ArtistName" list="ArtistName" name="ArtistName" type="text" value="" />
+                    <datalist id="ArtistName">
+                        <option value="Internet Explorer">
+                        <option value="Firefox">
+                        <option value="Chrome">
+                        <option value="Opera">
+                        <option value="Safari">
+                    </datalist>
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            }
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+
+        $(document).ready(function ()
+        {
+            $("#ArtistName").on('input', function ()
+            {
+                var researchWord = $(this).val();
+                var urlSpotify = 'https://api.spotify.com/v1/search?type=artist&q=' + researchWord;
+                var token = @ViewBag.Token.Access_token;
+
+                $.ajax({
+                    url: `https://api.spotify.com/v1/search`,
+                    headers: {
+                        'Authorization':'Bearer ' + token
+                    },
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        q: researchWord,
+                        type: 'artist'
+                    },
+                    success: function () { alert('Success'); },
+                    error: function () { alert('Error'); }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+
+

@@ -4,18 +4,21 @@ using SpotifyAPI.Models.SpotifyRequest;
 using SpotifyAPI.Models.SpotifyRequest.SpotifyObjects;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Collections.Generic;
+using SpotifyAPI.Models.Playlist;
 
 namespace SpotifyAPI.Controllers
 {
     public class HomeController : Controller
     {
-
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            Token token = await SpotifyConnection.GetToken_Async();
+
+            ViewBag.Token = token;
             return View();
         }
 
-        [HttpPost]
         public async Task<ActionResult> SearchResult()
         {
             string artisteName = Request["ArtistName"];
@@ -48,8 +51,11 @@ namespace SpotifyAPI.Controllers
 
             Token token = await SpotifyConnection.GetToken_Async();
             Artists artist = await GetRequest<Artists>.UriSearchAsync(completUri, token.Access_token);
-            ViewBag.Artist = artist; 
-            
+
+            Playlist playlist = new Playlist(artist);
+
+            ViewBag.Playlist = playlist;
+
             return View();
         }
     }

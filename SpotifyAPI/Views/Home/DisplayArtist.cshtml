@@ -1,13 +1,11 @@
-﻿@{
-    ViewBag.Title = ViewBag.Artist.Items[0].Artists[0].Name;
-}
-<h2>@ViewBag.Title</h2>
+﻿
+<h2>@ViewBag.Playlist.GroupName</h2>
 
-@foreach(var album in ViewBag.Artist.Items)
+@foreach (var album in ViewBag.Playlist.Albums)
 {
     <div class="row">
         <div class="col-md-6">
-            <img src="@album.Images[0].Url" alt="test" class="img-size"/>
+            <img src="@album.Image_url" alt="test" class="img-size" />
         </div>
         <div class="col-md-6">
             <h3>@album.Name (@album.Release_date)</h3>
