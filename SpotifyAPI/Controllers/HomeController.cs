@@ -3,6 +3,7 @@ using SpotifyAPI.Models;
 using SpotifyAPI.Models.SpotifyRequest;
 using SpotifyAPI.Models.SpotifyRequest.SpotifyObjects;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace SpotifyAPI.Controllers
 {
@@ -22,7 +23,7 @@ namespace SpotifyAPI.Controllers
             if(artisteName != "")
             {
                 Token token = await SpotifyConnection.GetToken_Async();
-                SpotifyObject artist = await GetRequest<SpotifyObject>.ArtistSearchAsync(artisteName, token.Access_token);
+                SpotifyArtist artist = await GetRequest<SpotifyArtist>.ArtistSearchAsync(artisteName, token.Access_token);
                 ViewBag.Artists = artist.Artists;
                 return View();
             }
@@ -36,22 +37,19 @@ namespace SpotifyAPI.Controllers
         {
             string completUri = uri + "&type=" + type + "&offset=" + offset + "&limit=" + limit;
             Token token = await SpotifyConnection.GetToken_Async();
-            SpotifyObject artist = await GetRequest<SpotifyObject>.UriSearchAsync(completUri, token.Access_token);
+            SpotifyArtist artist = await GetRequest<SpotifyArtist>.UriSearchAsync(completUri, token.Access_token);
             ViewBag.Artists = artist.Artists;
             return View("SearchResult");
         }
 
-        public ActionResult About()
+        public async Task<ActionResult> DisplayArtist(string idArtist)
         {
-            ViewBag.Message = "Your application description page.";
+            string completUri = "https://api.spotify.com/v1/artists/" + idArtist + "/albums";
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+            Token token = await SpotifyConnection.GetToken_Async();
+            Artists artist = await GetRequest<Artists>.UriSearchAsync(completUri, token.Access_token);
+            ViewBag.Artist = artist; 
+            
             return View();
         }
     }

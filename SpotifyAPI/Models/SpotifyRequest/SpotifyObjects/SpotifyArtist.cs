@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SpotifyAPI.Models.SpotifyRequest.SpotifyObjects
 {
-    public class SpotifyObject
+    public class SpotifyArtist
     {
         [JsonProperty("artists")]
         public Artists Artists { get; set; }

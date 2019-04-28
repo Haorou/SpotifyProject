@@ -124,14 +124,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\SpotifyRequest\SpotifyObjects\Artists\Album.cs" />
     <Compile Include="Models\SpotifyRequest\GetRequest.cs" />
-    <Compile Include="Models\SpotifyRequest\SpotifyObjects\Artists\Artists.cs" />
-    <Compile Include="Models\SpotifyRequest\SpotifyObjects\SpotifyObject.cs" />
-    <Compile Include="Models\SpotifyRequest\SpotifyObjects\Artists\External_urls.cs" />
-    <Compile Include="Models\SpotifyRequest\SpotifyObjects\Artists\Followers.cs" />
-    <Compile Include="Models\SpotifyRequest\SpotifyObjects\Artists\ImageWeb.cs" />
-    <Compile Include="Models\SpotifyRequest\SpotifyObjects\Artists\Item.cs" />
+    <Compile Include="Models\SpotifyRequest\SpotifyObjects\Artists.cs" />
+    <Compile Include="Models\SpotifyRequest\SpotifyObjects\SpotifyArtist.cs" />
+    <Compile Include="Models\SpotifyRequest\SpotifyObjects\External_urls.cs" />
+    <Compile Include="Models\SpotifyRequest\SpotifyObjects\Followers.cs" />
+    <Compile Include="Models\SpotifyRequest\SpotifyObjects\ImageWeb.cs" />
+    <Compile Include="Models\SpotifyRequest\SpotifyObjects\Item.cs" />
     <Compile Include="Models\SpotifyRequest\SpotifyObjects\Token.cs" />
     <Compile Include="Models\SpotifyRequest\_SpotifyConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -170,8 +169,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\DisplayArtist.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\SearchResult.cshtml" />
   </ItemGroup>

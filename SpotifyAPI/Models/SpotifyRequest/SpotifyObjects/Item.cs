@@ -30,7 +30,26 @@ namespace SpotifyAPI.Models.SpotifyRequest.SpotifyObjects
         [JsonProperty("popularity")]
         public string Popularity { get; set; }
 
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
         [JsonProperty("uri")]
         public string Uri { get; set; }
+
+
+        [JsonProperty("artists")]
+        public List<Artists> Artists { get; set; }
+        [JsonProperty("available_markets")]
+        public string[] Available_markets { get; set; }
+        [JsonProperty("album_group")]
+        public string Album_group { get; set; }
+        [JsonProperty("album_type")]
+        public string Album_type { get; set; }
+        [JsonProperty("release_date")]
+        public string Release_date { get; set; }
+        [JsonProperty("release_date_precision")]
+        public string Release_date_precision { get; set; }
+        [JsonProperty("total_tracks")]
+        public int Total_tracks { get; set; }
     }
 }
