@@ -15,7 +15,7 @@ namespace SpotifyAPI.Controllers
         {
             Token token = await SpotifyConnection.GetToken_Async();
 
-            ViewBag.Token = token;
+            ViewBag.Access_token = token.Access_token;
             return View();
         }
 
