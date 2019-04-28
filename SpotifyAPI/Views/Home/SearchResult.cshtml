@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "SearchResult";
+    int loopPosition = 0;
+}
+
+
+@using (Html.BeginForm("SearchResult", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Artiste")
+        @Html.TextBox("ArtistName")
+    </div>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+}
+
+<h2>Résultat de la recherche</h2>
+
+<div class="container">
+    @if (ViewBag.Artists.Next != null || ViewBag.Artists.Previous != null)
+    {
+        <div class="row">
+            @if (ViewBag.Artists.Previous != null)
+            {
+                <div class="col-md-6">
+                    <a href="/Home/SearchURI?uri=@ViewBag.Artists.Previous">Previous</a>
+                </div>
+            }
+            @if (ViewBag.Artists.Next != null)
+            {
+                <div class="col-md-6 pull-right">
+                    <a href="/Home/SearchURI?uri=@ViewBag.Artists.Next" >Suivant</a>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<div class="container" style="padding-top:15px; padding-bottom:15px; background-color:gray">
+    <div class="row vrowcenter">
+
+        @foreach (var item in ViewBag.Artists.Items)
+        {
+            <div class="col-md-6 vcenter">
+
+                @{
+                    loopPosition++;
+                    string s_imageUrl = "http://placehold.it/580x580";
+                    if (item.Images != null && item.Images.Count != 0)
+                    {
+                        s_imageUrl = item.Images[0].Url;
+                    }
+                }
+
+                <img src="@s_imageUrl" alt="test" class="img-size">
+
+                <div class="carousel-caption">
+                    <h1>@item.Name</h1>
+                </div>
+
+            </div>
+
+            {
+                bool endDiv = loopPosition % 2 == 0 ? true : false;
+                if (endDiv)
+                {
+                @:</div> <div class="row vrowcenter">
+                }
+            }
+        }
+    </div>
+</div>
+
+<div class="container">
+    @if (ViewBag.Artists.Next != null || ViewBag.Artists.Previous != null)
+    {
+        <div class="row">
+            @if (ViewBag.Artists.Previous != null)
+            {
+                <div class="col-md-6">
+                    <a href="/Home/SearchURI?uri=@ViewBag.Artists.Previous">Previous</a>
+                </div>
+            }
+            @if (ViewBag.Artists.Next != null)
+            {
+                <div class="col-md-6 pull-right">
+                    <a href="/Home/SearchURI?uri=@ViewBag.Artists.Next">Suivant</a>
+                </div>
+            }
+        </div>
+    }
+</div>

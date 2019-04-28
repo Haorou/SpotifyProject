@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h class="text-center">Recherche un artiste</h>
+</div>
+
+<div class="row">
+    <div class="col-md-9 col-md-offset-3">
+
+        @using (Html.BeginForm("SearchResult", "Home", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.Label("Artiste")
+                @Html.TextBox("ArtistName")
+            </div>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        }
+
+    </div>
+</div>

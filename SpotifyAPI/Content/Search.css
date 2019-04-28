@@ -1,0 +1,25 @@
+﻿/**
+reference:
+http://stackoverflow.com/a/20548578
+http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/
+*/
+.vcenter {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.vrowcenter {
+    -webkit-transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    transform: translateY(50%);
+}
+
+.img-size {
+    max-height: 580px;
+    max-width: 580px;
+    margin-bottom:5px;
+}
