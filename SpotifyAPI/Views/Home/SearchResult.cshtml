@@ -3,29 +3,34 @@
     int loopPosition = 0;
 }
 
-<h2>Résultat de la recherche</h2>
+<h1 class="jumbotron-heading">Résultats de votre recherche</h1>
 
-<div class="container">
+<div class="container search-beautify" style="padding-top:15px; padding-bottom:15px;">
+
     @if (ViewBag.Artists.Next != null || ViewBag.Artists.Previous != null)
     {
-        <div class="row">
+        <div class="row" style="padding-bottom:10px;">
             @if (ViewBag.Artists.Previous != null)
             {
-                <div class="col-md-6">
-                    <a href="/Home/SearchURI?uri=@ViewBag.Artists.Previous">Previous</a>
-                </div>
+            <div class="col-md-6  text-center">
+                <button onclick="window.location.href = '/Home/SearchURI?uri=@ViewBag.Artists.Previous';" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    Précédent
+                </button>
+            </div>
             }
             @if (ViewBag.Artists.Next != null)
             {
-                <div class="col-md-6 pull-right">
-                    <a href="/Home/SearchURI?uri=@ViewBag.Artists.Next" >Suivant</a>
-                </div>
+            <div class="col-md-6 pull-right text-center">
+                <button onclick="window.location.href = '/Home/SearchURI?uri=@ViewBag.Artists.Next';" class="btn btn-primary">
+                    Suivant
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </button>
+            </div>
             }
         </div>
     }
-</div>
 
-<div class="container" style="padding-top:15px; padding-bottom:15px;">
     <div class="row vrowcenter">
 
         @foreach (var item in ViewBag.Artists.Items)
@@ -58,23 +63,27 @@
             }
         }
     </div>
-</div>
 
-<div class="container">
     @if (ViewBag.Artists.Next != null || ViewBag.Artists.Previous != null)
     {
-        <div class="row">
+        <div class="row" style="padding-top:10px;">
             @if (ViewBag.Artists.Previous != null)
             {
-                <div class="col-md-6">
-                    <a href="/Home/SearchURI?uri=@ViewBag.Artists.Previous">Previous</a>
-                </div>
+            <div class="col-md-6  text-center">
+                <button onclick="window.location.href = '/Home/SearchURI?uri=@ViewBag.Artists.Previous';" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    Précédent
+                </button>
+            </div>
             }
             @if (ViewBag.Artists.Next != null)
             {
-                <div class="col-md-6 pull-right">
-                    <a href="/Home/SearchURI?uri=@ViewBag.Artists.Next">Suivant</a>
-                </div>
+            <div class="col-md-6 pull-right text-center">
+                <button onclick="window.location.href = '/Home/SearchURI?uri=@ViewBag.Artists.Next';" class="btn btn-primary">
+                    Suivant
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </button>
+            </div>
             }
         </div>
     }

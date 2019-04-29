@@ -11,8 +11,11 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <li><a asp-area="" asp-controller="Home" asp-action="Index">Top 10 Artistes</a></li>
+        <ul class="nav navbar-nav text-center">
+            <li><a href="/Home/Index">Top 10 Artistes</a></li>
+        </ul>
     </div>
+
     <div class="container body-content">
         <div class="container">
 
@@ -25,7 +28,10 @@
                         <input id="ArtistName" list="ListArtist" name="ArtistName" type="text" placeholder="Rechercher un artiste" />
                         <datalist id="ListArtist"></datalist>
                     </div>
-                    <button type="submit" class="btn btn-primary">Lancer la recherche</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        Lancer la recherche
+                    </button>
                 }
 
             </div>

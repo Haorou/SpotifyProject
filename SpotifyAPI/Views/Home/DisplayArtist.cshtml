@@ -1,17 +1,19 @@
 ﻿
-<h2>@ViewBag.Playlist.GroupName</h2>
+<h2 class="jumbotron-heading">@ViewBag.Playlist.GroupName</h2>
 
-@foreach (var album in ViewBag.Playlist.Albums)
-{
-    <div class="row">
-        <div class="col-md-6">
-            <img src="@album.Image_url" alt="test" class="img-size" />
+<div class="container search-beautify" style="padding-top:15px; padding-bottom:15px;">
+    @foreach (var album in ViewBag.Playlist.Albums)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@album.Image_url" alt="test" class="img-size" />
+            </div>
+            <div class="col-md-6">
+                <h3>@album.Name (@album.Release_date)</h3>
+                <p>Type : @album.Album_type</p>
+                <p>Nombre de titres : @album.Total_tracks</p>
+                <iframe src="https://open.spotify.com/embed/album/@album.Id" width="550" height="435" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            </div>
         </div>
-        <div class="col-md-6">
-            <h3>@album.Name (@album.Release_date)</h3>
-            <p>Type : @album.Album_type</p>
-            <p>Nombre de titres : @album.Total_tracks</p>
-            <iframe src="https://open.spotify.com/embed/album/@album.Id" width="580" height="470" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-        </div>
-    </div>
-}
+    }
+</div>

@@ -20,11 +20,17 @@
 input,
 select,
 textarea {
-    max-width: 600px;
+    max-width: 300px;
 }
 
 
 .jumbotron-heading {
     font-weight: 300;
     text-align:center;
+}
+
+.search-beautify
+{
+    background-color:gainsboro;
+    border-radius:25px;
 }
