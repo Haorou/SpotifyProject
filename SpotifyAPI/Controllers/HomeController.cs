@@ -25,7 +25,7 @@ namespace SpotifyAPI.Controllers
         {
             string artisteName = Request["ArtistName"];
 
-            if(artisteName != "")
+            if(artisteName != "" && artisteName != null)
             {
                 Token token = await SpotifyConnection.GetToken_Async();
                 SpotifyArtist artist = await GetRequest<SpotifyArtist>.ArtistSearchNameAsync(artisteName, token.Access_token);
@@ -34,17 +34,24 @@ namespace SpotifyAPI.Controllers
             }
             else
             {
-                return View("Index");
+                return await Index();
             }
         }
 
         public async Task<ActionResult>SearchURI(string uri, string type, string offset, string limit)
         {
-            string completUri = uri + "&type=" + type + "&offset=" + offset + "&limit=" + limit;
-            Token token = await SpotifyConnection.GetToken_Async();
-            SpotifyArtist artist = await GetRequest<SpotifyArtist>.UriSearchAsync(completUri, token.Access_token);
-            ViewBag.Artists = artist.Artists;
-            return View("SearchResult");
+            if(uri != "" && type != "" && offset != "" && limit != "")
+            {
+                string completUri = uri + "&type=" + type + "&offset=" + offset + "&limit=" + limit;
+                Token token = await SpotifyConnection.GetToken_Async();
+                SpotifyArtist artist = await GetRequest<SpotifyArtist>.UriSearchAsync(completUri, token.Access_token);
+                ViewBag.Artists = artist.Artists;
+                return View("SearchResult");
+            }
+            else
+            {
+                return await Index();
+            }
         }
 
         public async Task<ActionResult> DisplayArtist(string idArtist)

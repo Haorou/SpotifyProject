@@ -12,14 +12,14 @@
 
                 @{
                     loopPosition++;
-                    string s_imageUrl = "http://placehold.it/580x580";
+                    string imageUrl = "http://placehold.it/580x580";
                     if (item.Images != null && item.Images.Count != 0)
                     {
-                        s_imageUrl = item.Images[0].Url;
+                        imageUrl = item.Images[0].Url;
                     }
                 }
 
-                <a href="/Home/DisplayArtist?idArtist=@item.Id"><img src="@s_imageUrl" alt="test" class="img-size"></a>
+                <a href="/Home/DisplayArtist?idArtist=@item.Id"><img src="@imageUrl" alt="test" class="img-size"></a>
 
                 <div class="carousel-caption">
                     <h1>@item.Name</h1>
