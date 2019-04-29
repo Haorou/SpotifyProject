@@ -1,65 +1,39 @@
-﻿<body>
+﻿@{
+    int loopPosition = 0;
+}
 
-    <div class="jumbotron">
-        <h class="text-center">Recherche un artiste</h>
-    </div>
+<div class="container" style="padding-top:15px; padding-bottom:15px;">
+    <h1 class="jumbotron-heading">Top 10 Artistes</h1>
+    <div class="row vrowcenter">
 
-    <div class="row">
-        <div class="col-md-9 col-md-offset-3">
-
-            @using (Html.BeginForm("SearchResult", "Home", FormMethod.Post))
-            {
-                <div class="form-group">
-                    @Html.Label("Artiste")
-                    <input id="ArtistName" list="ListArtist" name="ArtistName" type="text" value="" />
-                    <datalist id="ListArtist">
-                    </datalist>
-                </div>
-                <button type="submit" class="btn btn-primary">Envoyer</button>
-            }
-
-        </div>
-    </div>
-
-    
-    @section Scripts {
-    <script >
-
-        $(document).ready(function ()
+        @foreach (var item in ViewBag.Artists.Items)
         {
-            $("#ArtistName").on('input', function ()
-            {
-                Ajax_Request($(this).val());
-            });
-        });
+            <div class="col-md-6 vcenter">
 
-        function Ajax_Request(researchWord)
-        {
-            var urlSpotify = 'https://api.spotify.com/v1/search?type=artist&q=' + researchWord;
-
-            try {
-                $.ajax({
-                    url: urlSpotify,
-                    type: "GET",
-                    dataType: 'JSON',
-                    headers: { 'Authorization': 'Bearer ' + '@ViewBag.Access_token' },
-                }).then(function (response)
-                {
-                    $('#ListArtist').empty();
-                    var length = response.artists.items.length;
-                    for (var i = 0; i < length; i++) {
-                        $('#ListArtist').append("<option value='" + response.artists.items[i].name + "'>");
+                @{
+                    loopPosition++;
+                    string s_imageUrl = "http://placehold.it/580x580";
+                    if (item.Images != null && item.Images.Count != 0)
+                    {
+                        s_imageUrl = item.Images[0].Url;
                     }
-                });
-            }
-            catch (ex) {
-                alert("catch");
+                }
+
+                <a href="/Home/DisplayArtist?idArtist=@item.Id"><img src="@s_imageUrl" alt="test" class="img-size"></a>
+
+                <div class="carousel-caption">
+                    <h1>@item.Name</h1>
+                </div>
+
+            </div>
+
+            {
+                bool endDiv = loopPosition % 2 == 0 ? true : false;
+                if (endDiv)
+                {
+                @:</div> <div class="row vrowcenter">
+                }
             }
         }
-    </script>
-    }
-
-    </body>
-
-
-
+    </div>
+</div>

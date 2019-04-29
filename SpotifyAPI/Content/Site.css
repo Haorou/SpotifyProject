@@ -20,5 +20,11 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 600px;
+}
+
+
+.jumbotron-heading {
+    font-weight: 300;
+    text-align:center;
 }

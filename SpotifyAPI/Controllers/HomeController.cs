@@ -15,6 +15,8 @@ namespace SpotifyAPI.Controllers
         {
             Token token = await SpotifyConnection.GetToken_Async();
 
+            SpotifyArtist artist = await GetRequest<SpotifyArtist>.TopArtistSearchAsync(token.Access_token);
+            ViewBag.Artists = artist.Artists;
             ViewBag.Access_token = token.Access_token;
             return View();
         }
@@ -26,7 +28,7 @@ namespace SpotifyAPI.Controllers
             if(artisteName != "")
             {
                 Token token = await SpotifyConnection.GetToken_Async();
-                SpotifyArtist artist = await GetRequest<SpotifyArtist>.ArtistSearchAsync(artisteName, token.Access_token);
+                SpotifyArtist artist = await GetRequest<SpotifyArtist>.ArtistSearchNameAsync(artisteName, token.Access_token);
                 ViewBag.Artists = artist.Artists;
                 return View();
             }

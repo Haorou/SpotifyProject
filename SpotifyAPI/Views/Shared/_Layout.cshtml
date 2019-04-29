@@ -11,17 +11,69 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Top 10 Artistes</a></li>
     </div>
     <div class="container body-content">
+        <div class="container">
+
+
+            <div class="row text-center" style="padding-top:20px;">
+
+                @using (Html.BeginForm("SearchResult", "Home", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <input id="ArtistName" list="ListArtist" name="ArtistName" type="text" placeholder="Rechercher un artiste" />
+                        <datalist id="ListArtist"></datalist>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lancer la recherche</button>
+                }
+
+            </div>
+        </div>
+        <hr />
         @RenderBody()
+
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mon application ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Spotify Application</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+
+    $(document).ready(function ()
+    {
+        $("#ArtistName").on('input', function ()
+        {
+            Ajax_Request($(this).val());
+        });
+    });
+
+    function Ajax_Request(researchWord)
+    {
+        var urlSpotify = 'https://api.spotify.com/v1/search?type=artist&q=' + researchWord;
+
+        try {
+            $.ajax({
+                url: urlSpotify,
+                type: "GET",
+                dataType: 'JSON',
+                headers: { 'Authorization': 'Bearer ' + '@ViewBag.Access_token' },
+            }).then(function (response)
+            {
+                $('#ListArtist').empty();
+                var length = response.artists.items.length;
+                for (var i = 0; i < length; i++) {
+                    $('#ListArtist').append("<option value='" + response.artists.items[i].name + "'>");
+                }
+            });
+        }
+        catch (ex) {
+            alert("catch");
+        }
+    }
+    </script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

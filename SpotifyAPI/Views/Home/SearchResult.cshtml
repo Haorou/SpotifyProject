@@ -1,17 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "SearchResult";
     int loopPosition = 0;
-}
-
-
-@using (Html.BeginForm("SearchResult", "Home", FormMethod.Post))
-{
-    <div class="form-group">
-        @Html.Label("Artiste")
-        @Html.TextBox("ArtistName")
-    </div>
-    <button type="submit" class="btn btn-primary">Envoyer</button>
 }
 
 <h2>Résultat de la recherche</h2>
