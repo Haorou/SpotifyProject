@@ -11,13 +11,8 @@
             {
                 <div class="form-group">
                     @Html.Label("Artiste")
-                    <input id="ArtistName" list="ArtistName" name="ArtistName" type="text" value="" />
-                    <datalist id="ArtistName">
-                        <option value="Internet Explorer">
-                        <option value="Firefox">
-                        <option value="Chrome">
-                        <option value="Opera">
-                        <option value="Safari">
+                    <input id="ArtistName" list="ListArtist" name="ArtistName" type="text" value="" />
+                    <datalist id="ListArtist">
                     </datalist>
                 </div>
                 <button type="submit" class="btn btn-primary">Envoyer</button>
@@ -46,9 +41,15 @@
                 $.ajax({
                     url: urlSpotify,
                     type: "GET",
+                    dataType: 'JSON',
                     headers: { 'Authorization': 'Bearer ' + '@ViewBag.Access_token' },
-                }).then(function (oData) {
-                    console.log(oData);
+                }).then(function (response)
+                {
+                    $('#ListArtist').empty();
+                    var length = response.artists.items.length;
+                    for (var i = 0; i < length; i++) {
+                        $('#ListArtist').append("<option value='" + response.artists.items[i].name + "'>");
+                    }
                 });
             }
             catch (ex) {

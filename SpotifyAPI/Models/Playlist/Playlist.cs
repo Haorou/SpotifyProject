@@ -32,7 +32,7 @@ namespace SpotifyAPI.Models.Playlist
 
             foreach (Album albumLoop in this.Albums)
             {
-                if (albumLoop.Name == album.Name)
+                if (albumLoop.Name.Equals(album.Name))
                 {
                     if (albumLoop.Total_tracks < album.Total_tracks)
                     {
