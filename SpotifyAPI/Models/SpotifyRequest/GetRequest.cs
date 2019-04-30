@@ -47,9 +47,10 @@ namespace SpotifyAPI.Models.SpotifyRequest
         public static async Task<T> TopArtistSearchAsync(string access_token)
         {
             string url = "https://api.spotify.com/v1/search?" +
-                        "q=year:" + DateTime.Now.Year + 
+                        "q=year:" + DateTime.Now.Year +
                         "&type=" + "artist" +
-                        "&limit=" + 10;
+                        "&limit=" + 10
+                        ;//+ "&market=FR" Not specialy a good idea;
 
             try
             {
