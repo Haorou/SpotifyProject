@@ -35,24 +35,25 @@
 
         @foreach (var item in ViewBag.Artists.Items)
         {
-        <div class="col-md-6 vcenter">
+            <div class="col-md-6 vcenter">
 
-            @{
-                loopPosition++;
-                string s_imageUrl = "http://placehold.it/580x580";
-                if (item.Images != null && item.Images.Count != 0)
-                {
-                    s_imageUrl = item.Images[0].Url;
+                @{
+                    loopPosition++;
+                    string imageUrl = "http://placehold.it/580x580";
+                    if (item.Images != null && item.Images.Count != 0)
+                    {
+                        imageUrl = item.Images[0].Url;
+                    }
                 }
-            }
 
-            <a href="/Home/DisplayArtist?idArtist=@item.Id"><img src="@s_imageUrl" alt="test" class="img-size"></a>
+                <a href="/Home/DisplayArtist?idArtist=@item.Id">
+                    <img src="@imageUrl" alt="test" class="img-size">
+                    <div class="carousel-caption">
+                        <h1>@item.Name</h1>
+                    </div>
+                </a>
 
-            <div class="carousel-caption">
-                <h1>@item.Name</h1>
             </div>
-
-        </div>
 
             {
                 bool endDiv = loopPosition % 2 == 0 ? true : false;
