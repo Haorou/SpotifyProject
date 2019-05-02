@@ -134,6 +134,7 @@
     <Compile Include="Models\SpotifyRequest\SpotifyObjects\ImageWeb.cs" />
     <Compile Include="Models\SpotifyRequest\SpotifyObjects\Item.cs" />
     <Compile Include="Models\SpotifyRequest\SpotifyObjects\Token.cs" />
+    <Compile Include="Models\SpotifyRequest\TokenGestion.cs" />
     <Compile Include="Models\SpotifyRequest\_SpotifyConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -221,15 +222,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  
-  
   <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
     <ItemGroup>
       <RoslynFiles Include="$(CscToolPath)\*" />
     </ItemGroup>
     <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
     <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-</Target>
+  </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
@@ -243,7 +242,3 @@
   <Target Name="AfterBuild">
   </Target> -->
 </Project>
-
-
-
-

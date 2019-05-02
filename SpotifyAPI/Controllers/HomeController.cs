@@ -13,6 +13,14 @@ namespace SpotifyAPI.Controllers
     {
         public async Task<ActionResult> Index()
         {
+            /*
+            if (Session["TokenGestion"] == null)
+            {
+                Session["TokenGestion"] = new TokenGestion();
+            }
+            object TokenGestion = Session["TokenGestion"];
+            TokenGestion.GetSomething();
+            */
             Token token = await SpotifyConnection.GetToken_Async();
 
             SpotifyArtist artist = await GetRequest<SpotifyArtist>.TopArtistSearchAsync(token.Access_token);

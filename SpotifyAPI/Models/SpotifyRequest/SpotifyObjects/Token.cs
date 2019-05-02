@@ -13,7 +13,7 @@ namespace SpotifyAPI.Models.SpotifyRequest
         [JsonProperty("token_type")]
         public string Token_type { get ; set; }
         [JsonProperty("expires_in")]
-        public string Expires_in { get; set; }
+        public int Expires_in { get; set; }
         [JsonProperty("refresh_token")]
         public string Refresh_token { get; set; }
         [JsonProperty("scope")]
