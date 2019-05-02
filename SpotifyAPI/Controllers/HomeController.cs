@@ -11,32 +11,30 @@ namespace SpotifyAPI.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Start the app. with the TopTen artist.
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> Index()
         {
-            /*
-            if (Session["TokenGestion"] == null)
-            {
-                Session["TokenGestion"] = new TokenGestion();
-            }
-            object TokenGestion = Session["TokenGestion"];
-            TokenGestion.GetSomething();
-            */
-            Token token = await SpotifyConnection.GetToken_Async();
-
-            SpotifyArtist artist = await GetRequest<SpotifyArtist>.TopArtistSearchAsync(token.Access_token);
+            ViewBag.Access_token = await GetAccessTokenAsync();
+            SpotifyArtist artist = await GetRequest<SpotifyArtist>.TopArtistSearchAsync(ViewBag.Access_token);
             ViewBag.Artists = artist.Artists;
-            ViewBag.Access_token = token.Access_token;
+
             return View();
         }
 
+        /// <summary>
+        /// Find a list of artists according to the given artist name
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> SearchResult()
         {
             string artisteName = Request["ArtistName"];
 
             if(artisteName != "" && artisteName != null)
             {
-                Token token = await SpotifyConnection.GetToken_Async();
-                SpotifyArtist artist = await GetRequest<SpotifyArtist>.ArtistSearchNameAsync(artisteName, token.Access_token);
+                SpotifyArtist artist = await GetRequest<SpotifyArtist>.ArtistSearchNameAsync(artisteName, await GetAccessTokenAsync());
                 ViewBag.Artists = artist.Artists;
                 return View();
             }
@@ -46,13 +44,21 @@ namespace SpotifyAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Use to change page when you have more than 20 artists
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="type"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         public async Task<ActionResult>SearchURI(string uri, string type, string offset, string limit)
         {
             if(uri != "" && type != "" && offset != "" && limit != "")
             {
                 string completUri = uri + "&type=" + type + "&offset=" + offset + "&limit=" + limit;
-                Token token = await SpotifyConnection.GetToken_Async();
-                SpotifyArtist artist = await GetRequest<SpotifyArtist>.UriSearchAsync(completUri, token.Access_token);
+
+                SpotifyArtist artist = await GetRequest<SpotifyArtist>.UriSearchAsync(completUri, await GetAccessTokenAsync());
                 ViewBag.Artists = artist.Artists;
                 return View("SearchResult");
             }
@@ -62,12 +68,16 @@ namespace SpotifyAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Use to found an artists thanks to his Spotify's Id.
+        /// </summary>
+        /// <param name="idArtist"></param>
+        /// <returns></returns>
         public async Task<ActionResult> DisplayArtist(string idArtist)
         {
             string completUri = "https://api.spotify.com/v1/artists/" + idArtist + "/albums";
 
-            Token token = await SpotifyConnection.GetToken_Async();
-            Artists artist = await GetRequest<Artists>.UriSearchAsync(completUri, token.Access_token);
+            Artists artist = await GetRequest<Artists>.UriSearchAsync(completUri, await GetAccessTokenAsync());
 
             Playlist playlist = new Playlist(artist);
 
@@ -75,5 +85,21 @@ namespace SpotifyAPI.Controllers
 
             return View();
         }
+
+        /// <summary>
+        /// Use to get the token to make some request
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetAccessTokenAsync()
+        {
+            if (Session["TokenGestion"] == null)
+            {
+                Session["TokenGestion"] = new TokenGestion();
+            }
+            TokenGestion TokenGestion = (TokenGestion)Session["TokenGestion"];
+
+            return await TokenGestion.GetTokenAccessAsync();
+        }
+
     }
 }

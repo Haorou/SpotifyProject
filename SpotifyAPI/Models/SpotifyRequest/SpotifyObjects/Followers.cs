@@ -7,6 +7,6 @@ namespace SpotifyAPI.Models.SpotifyRequest.SpotifyObjects
         [JsonProperty("href")]
         public string Href { get; set; }
         [JsonProperty("total")]
-        public string Total { get; set; }
+        public int Total { get; set; }
     }
 }

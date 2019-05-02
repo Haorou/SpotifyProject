@@ -8,6 +8,11 @@ namespace SpotifyAPI.Models.SpotifyRequest
 {
     public class GetRequest<T>
     {
+        /// <summary>
+        /// Return all Artists that looks like "artistName" (Part of that function was found in Github)
+        /// </summary>
+        /// <param name="access_token"></param>
+        /// <returns></returns>
         public static async Task<T> ArtistSearchNameAsync(string artistName, string access_token)
         {
             string url = "https://api.spotify.com/v1/search?" +
@@ -44,6 +49,11 @@ namespace SpotifyAPI.Models.SpotifyRequest
             }
         }
 
+        /// <summary>
+        /// Return all TopArtist (Part of that function was found in Github)
+        /// </summary>
+        /// <param name="access_token"></param>
+        /// <returns></returns>
         public static async Task<T> TopArtistSearchAsync(string access_token)
         {
             string url = "https://api.spotify.com/v1/search?" +
@@ -82,6 +92,11 @@ namespace SpotifyAPI.Models.SpotifyRequest
             }
         }
 
+        /// <summary>
+        /// Return an element thanks to the uri (Part of that function was found in Github)
+        /// </summary>
+        /// <param name="access_token"></param>
+        /// <returns></returns>
         public static async Task<T> UriSearchAsync(string uri, string access_token)
         {
             try

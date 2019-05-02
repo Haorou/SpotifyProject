@@ -18,55 +18,10 @@ namespace SpotifyAPI.Models
         private const string redirectURI = "http://localhost:63353/Home/AuthAsync";
 
         /// <summary>
-        /// Create the correct URL to make valide POST request with an Authorisation Code.
-        /// 
-        /// It's easier to use reponse_type=token but according to the Authorization Guide from Sportify, you have more freedom with the Authorization Code.
+        /// Return a token (Part of that function was found in Github)
         /// </summary>
-        /// <returns>string : URL use to obtain Authorisation Code</returns>
-        public static string GetSpotifyAuthCodeUri(params string[] scopes)
-        {
-            string url = "https://accounts.spotify.com/authorize?" +
-            "response_type=code" +
-            "&client_id=" + clientID +
-            "&redirect_uri=" + redirectURI +
-            "&show_dialogue=true";
-
-            int scopeSize = scopes.Length;
-            if (scopeSize > 0)
-            {
-                url += "&scope=";
-
-                for (int loopPosition = 0; loopPosition < scopeSize; loopPosition++)
-                {
-                    url += scopes[loopPosition];
-                    if (loopPosition < scopeSize)
-                        url += "%20";
-                }
-            }
-            return url;
-        }
-
-
-        public static async Task<Token> GetTokenWithAuthCode_Async(string code)
-        {
-            Dictionary<string, string> values = new Dictionary<string, string>
-            {
-                { "grant_type", "authorization_code" },
-                { "code", code },
-                { "redirect_uri", redirectURI },
-                { "client_id", clientID },
-                { "client_secret", clientSecret }
-            };
-
-            FormUrlEncodedContent content = new FormUrlEncodedContent(values);
-
-            HttpResponseMessage response = await client.PostAsync("https://accounts.spotify.com/api/token/", content);
-
-            string s_response = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<Token>(s_response);
-        }
-
+        /// <param></param>
+        /// <returns></returns>
         public static async Task<Token> GetToken_Async()
         {
             Token token = new Token();
@@ -99,13 +54,75 @@ namespace SpotifyAPI.Models
 
             return token;
         }
-
+        
+        /// <summary>
+        /// Simple function to encode correctly the credentials
+        /// </summary>
+        /// <returns></returns>
         static public string EncodeCredentials()
         {
             byte[] toEncodeAsBytes = Encoding.UTF8.GetBytes(clientID + ":" +clientSecret);
             string returnValue =Convert.ToBase64String(toEncodeAsBytes);
             return returnValue;
         }
+
+ /* OLD
+        /// <summary>
+        /// Create the correct URL to make valide POST request with an Authorisation Code.
+        /// 
+        /// It's easier to use reponse_type=token but according to the Authorization Guide from Sportify, you have more freedom with the Authorization Code.
+        /// </summary>
+        /// <returns>string : URL use to obtain Authorisation Code</returns>
+        public static string GetSpotifyAuthCodeUri(params string[] scopes)
+        {
+            string url = "https://accounts.spotify.com/authorize?" +
+            "response_type=code" +
+            "&client_id=" + clientID +
+            "&redirect_uri=" + redirectURI +
+            "&show_dialogue=true";
+
+            int scopeSize = scopes.Length;
+            if (scopeSize > 0)
+            {
+                url += "&scope=";
+
+                for (int loopPosition = 0; loopPosition < scopeSize; loopPosition++)
+                {
+                    url += scopes[loopPosition];
+                    if (loopPosition < scopeSize)
+                        url += "%20";
+                }
+            }
+            return url;
+        }
+
+        /// <summary>
+        /// Return a token with the CodeUri
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static async Task<Token> GetTokenWithAuthCode_Async(string code)
+        {
+            Dictionary<string, string> values = new Dictionary<string, string>
+            {
+                { "grant_type", "authorization_code" },
+                { "code", code },
+                { "redirect_uri", redirectURI },
+                { "client_id", clientID },
+                { "client_secret", clientSecret }
+            };
+
+            FormUrlEncodedContent content = new FormUrlEncodedContent(values);
+
+            HttpResponseMessage response = await client.PostAsync("https://accounts.spotify.com/api/token/", content);
+
+            string s_response = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Token>(s_response);
+        }
+*/
+
+
     }
-    
+
 }
